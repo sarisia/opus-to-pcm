@@ -6,7 +6,7 @@ export default class Ogg extends Event {
         this.channel = channel;
         this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         this.queue = [];
-        this.flushLimit = 20; /* the larger flush limit, the lesser clicking noise */
+        this.flushLimit = 25; /* the larger flush limit, the lesser clicking noise */
         this.init();
     }
 
@@ -93,7 +93,7 @@ export default class Ogg extends Event {
 
         while (this.queue.length) {
             packet = this.queue.shift();
-            headerType = this.queue.length == 0 ? 4 : 0; // for last packet, header type should be end of stream
+            headerType = this.queue.length == 0 // ? 4 : 0; // for last packet, header type should be end of stream
             segmentData = this.getPage(packet, headerType);
             oggData = appendByteArray(oggData, segmentData);
         }
@@ -134,10 +134,10 @@ export default class Ogg extends Event {
             let pcmFloat;
             if (this.channel == 1) {
                 pcmFloat = audioBuffer.getChannelData(0);
-            } else {
-                pcmFloat = this.getMergedPCMData(audioBuffer);
-            }
-            this.dispatch('data', pcmFloat); 
+            } // else {
+            //     pcmFloat = this.getMergedPCMData(audioBuffer);
+            // }
+            this.dispatch('data', audioBuffer); 
         });
     }
 
