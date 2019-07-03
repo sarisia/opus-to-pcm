@@ -93,7 +93,7 @@ export default class Ogg extends Event {
 
         while (this.queue.length) {
             packet = this.queue.shift();
-            headerType = this.queue.length == 0 // ? 4 : 0; // for last packet, header type should be end of stream
+            headerType = this.queue.length == 0; // ? 4 : 0; // for last packet, header type should be end of stream
             segmentData = this.getPage(packet, headerType);
             oggData = appendByteArray(oggData, segmentData);
         }
@@ -131,10 +131,10 @@ export default class Ogg extends Event {
     process() {
         let ogg = this.getOGG();
         this.audioCtx.decodeAudioData(ogg.buffer, (audioBuffer) => {
-            let pcmFloat;
-            if (this.channel == 1) {
-                pcmFloat = audioBuffer.getChannelData(0);
-            } // else {
+            // let pcmFloat;
+            // if (this.channel == 1) {
+            //     pcmFloat = audioBuffer.getChannelData(0);
+            // } else {
             //     pcmFloat = this.getMergedPCMData(audioBuffer);
             // }
             this.dispatch('data', audioBuffer); 

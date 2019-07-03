@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c --watch",
-    "pro": "NODE_ENV=production rollup -c",
+    "pro": "rollup -c --environment NODE_ENV:production",
     "test": "karma start karma.conf.js"
   },
   "repository": {
