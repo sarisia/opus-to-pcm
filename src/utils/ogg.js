@@ -4,7 +4,7 @@ export default class Ogg extends Event {
     constructor(channel) {
         super('ogg');
         this.channel = channel;
-        this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        this.audioCtx = new AudioContext(); // (window.AudioContext || window.webkitAudioContext)();
         this.queue = [];
         this.flushLimit = 25; /* the larger flush limit, the lesser clicking noise */
         this.init();
