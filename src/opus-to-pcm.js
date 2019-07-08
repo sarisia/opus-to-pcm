@@ -6,8 +6,8 @@ export default class OpusToPCM extends Event {
 
     constructor(options) {
         super('decoder');
-        window.MediaSource = window.MediaSource || window.WebKitMediaSource;
-        let nativeSupport = !!(window.MediaSource && window.MediaSource.isTypeSupported('audio/webm; codecs=opus'));
+        // window.MediaSource = window.MediaSource || window.WebKitMediaSource;
+        let nativeSupport = true; // !!(window.MediaSource && window.MediaSource.isTypeSupported('audio/webm; codecs=opus'));
         let defaults = {
             channels: 1,
             fallback: true,
