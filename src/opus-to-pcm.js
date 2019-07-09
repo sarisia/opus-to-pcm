@@ -6,8 +6,8 @@ export default class OpusToPCM extends Event {
 
     constructor(options) {
         super('decoder');
-        // window.MediaSource = window.MediaSource || window.WebKitMediaSource;
-        // let nativeSupport = false; // !!(window.MediaSource && window.MediaSource.isTypeSupported('audio/webm; codecs=opus'));
+        window.MediaSource = window.MediaSource || window.WebKitMediaSource;
+        let nativeSupport = !!(window.MediaSource && window.MediaSource.isTypeSupported('audio/webm; codecs=opus'));
         let defaults = {
             channels: 1,
             fallback: true,
@@ -15,13 +15,13 @@ export default class OpusToPCM extends Event {
         };
         options = Object.assign({}, defaults, options);
 
-        // if (nativeSupport) {
-        //     this.decoder = new Ogg(options.channels); 
-        // } else if(options.fallback) {
-        this.decoder = new OpusWorker(options.channels, options.libopusPath);
-        // } else {
-        //     this.decoder = null;
-        // }
+        if (nativeSupport) {
+            this.decoder = new Ogg(options.channels); 
+        } else if(options.fallback) {
+            this.decoder = new OpusWorker(options.channels, options.libopusPath);
+        } else {
+            this.decoder = null;
+        }
 
         if (this.decoder) {
             this.decoder.on('data', this.onData.bind(this));
