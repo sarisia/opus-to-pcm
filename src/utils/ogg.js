@@ -131,13 +131,13 @@ export default class Ogg extends Event {
     process() {
         let ogg = this.getOGG();
         this.audioCtx.decodeAudioData(ogg.buffer, (audioBuffer) => {
-            let pcmFloat;
-            if (this.channel == 1) {
-                pcmFloat = audioBuffer.getChannelData(0);
-            } else {
-                pcmFloat = this.getMergedPCMData(audioBuffer);
-            }
-            this.dispatch('data', pcmFloat); 
+            // let pcmFloat;
+            // if (this.channel == 1) {
+            //     pcmFloat = audioBuffer.getChannelData(0);
+            // } else {
+            //     pcmFloat = this.getMergedPCMData(audioBuffer);
+            // }
+            this.dispatch('data', audioBuffer); 
         });
     }
 
